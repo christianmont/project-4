@@ -263,6 +263,7 @@ def scan_domains(domains):
     return results
 
 
+# TODO: Look into main.py being produced
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Scan a list of web domains and output a JSON report.")
     parser.add_argument("input_file", help="Path to a file containing a list of domains to scan.")
