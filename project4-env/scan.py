@@ -4,8 +4,24 @@ import socket
 import ssl
 import subprocess
 import time
-# import whois
 
+# Public DNS Resolvers (Hardcoded)
+public_dns_resolvers = [
+    '208.67.222.222',
+    '1.1.1.1',
+    '8.8.8.8',
+    '8.26.56.26',
+    '9.9.9.9',
+    '64.6.65.6',
+    '91.239.100.100',
+    '185.228.168.168',
+    '77.88.8.7',
+    '156.154.70.1',
+    '198.101.242.72',
+    '176.103.130.130'
+]
+
+# TODO: FIX VIRTUAL ENVIRONMENT!!!
 def scan_domain(domain):
     """
     Scans a given domain and returns a dictionary of results.
@@ -14,9 +30,10 @@ def scan_domain(domain):
     results = {"scan_time": start_time}
 
     # Scan for IPv4 addresses
-    """ipv4_addresses = get_ipv4_addresses(domain)
+    ipv4_addresses = get_ipv4_addresses(domain)
     results["ipv4_addresses"] = ipv4_addresses
 
+    """
     # Scan for IPv6 addresses
     ipv6_addresses = get_ipv6_addresses(domain)
     results["ipv6_addresses"] = ipv6_addresses
@@ -54,27 +71,74 @@ def scan_domain(domain):
     return results
 
 
-'''
 def get_ipv4_addresses(domain):
     """
     Returns a list of IPv4 addresses associated with a domain.
     """
-    try:
-        return [ip[4][0] for ip in socket.getaddrinfo(domain, None, socket.AF_INET)]
-    except:
-        return []
+    # TODO: Do this for every domain name resolver
+    ipv4_addresses = []
 
+    for dns_resolver in public_dns_resolvers:
+        try:
+            nslookup_result = subprocess.check_output(["nslookup", domain, dns_resolver], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+
+            # print(f"Current dns_resolver: {dns_resolver}")
+            # print(f"nslookup_result: {nslookup_result}")
+
+            domain_info = nslookup_result.split('Non-authoritative answer:')[1]
+            # Isolates information about IPv4 and IPv6 addresses
+            domain_address_info = domain_info.split(f"\nName:\t{domain}\n")
+
+            for s in domain_address_info:
+                if 'Address: ' in s:
+                    ip = s.split('Address: ')[1].strip('\n\t')
+                    if ':' not in ip:
+                        ipv4_addresses.append(ip)
+        except subprocess.TimeoutExpired:
+            # TODO: Do we print here?
+            print("TimeoutExpired Exception Occurred\n")
+
+    # print(ipv4_addresses)
+    return ipv4_addresses
 
 def get_ipv6_addresses(domain):
     """
     Returns a list of IPv6 addresses associated with a domain.
     """
+    # TODO: Do this for every domain name resolver
+    ipv6_addresses = []
+
+    for dns_resolver in public_dns_resolvers:
+        try:
+            nslookup_result = subprocess.check_output(["nslookup", domain, dns_resolver], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+
+            # print(f"Current dns_resolver: {dns_resolver}")
+            # print(f"nslookup_result: {nslookup_result}")
+
+            domain_info = nslookup_result.split('Non-authoritative answer:')[1]
+            # Isolates information about IPv4 and IPv6 addresses
+            domain_address_info = domain_info.split(f"\nName:\t{domain}\n")
+
+            for s in domain_address_info:
+                if 'Address: ' in s:
+                    ip = s.split('Address: ')[1].strip('\n\t')
+                    if ':' not in ip:
+                        ipv4_addresses.append(ip)
+        except subprocess.TimeoutExpired:
+            # TODO: Do we print here?
+            print("TimeoutExpired Exception Occurred\n")
+
+    # print(ipv4_addresses)
+    return ipv6_addresses
+
+    '''
     try:
         return [ip[4][0] for ip in socket.getaddrinfo(domain, None, socket.AF_INET6)]
     except:
         return []
+    '''
 
-
+'''
 def get_http_server(domain):
     """
     Returns the name of the HTTP server software running on the domain.
@@ -236,8 +300,8 @@ def scan_domains(domains):
         start_time = time.time()
         print(f"Scanning {domain}...")
 
-        '''
         ipv4_addresses = get_ipv4_addresses(domain)
+        '''
         ipv6_addresses = get_ipv6_addresses(domain)
         http_server = get_http_server(domain)
         https_cert_info = get_https_cert_info(domain)
@@ -247,7 +311,8 @@ def scan_domains(domains):
         '''
 
         results[domain] = {
-            "scan_time": start_time
+            "scan_time": start_time,
+            "ipv4_addresses": ipv4_addresses
         }
 
         '''
