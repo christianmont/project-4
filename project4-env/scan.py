@@ -75,43 +75,49 @@ def get_ipv4_addresses(domain):
     """
     Returns a list of IPv4 addresses associated with a domain.
     """
-    # TODO: Do this for every domain name resolver
-    ipv4_addresses = []
+    # TODO: Edge cases for when dealing with canonical name, and when
+    # non-authoritative answer is not part of the string
+    ipv4_addresses = set()
 
     for dns_resolver in public_dns_resolvers:
         try:
             nslookup_result = subprocess.check_output(["nslookup", domain, dns_resolver], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
-
             # print(f"Current dns_resolver: {dns_resolver}")
             # print(f"nslookup_result: {nslookup_result}")
 
-            domain_info = nslookup_result.split('Non-authoritative answer:')[1]
+            # domain_info = nslookup_result.split('Non-authoritative answer:')[1]
             # Isolates information about IPv4 and IPv6 addresses
-            domain_address_info = domain_info.split(f"\nName:\t{domain}\n")
+            if f"{domain}\tcanonical name = " in nslookup_result:
+                canonical_name_data = nslookup_result.split("Name:")[1].strip("\n\t")
+                canonical_name = canonical_name_data.split("Address:")[0].strip(".\n\t")
+                domain_address_info = nslookup_result.split(f"\nName:\t{canonical_name}\n")
+            else:
+                domain_address_info = nslookup_result.split(f"\nName:\t{domain}\n")
 
             for s in domain_address_info:
                 if 'Address: ' in s:
                     ip = s.split('Address: ')[1].strip('\n\t')
                     if ':' not in ip:
-                        ipv4_addresses.append(ip)
+                        ipv4_addresses.add(ip)
         except subprocess.TimeoutExpired:
             # TODO: Do we print here?
             print("TimeoutExpired Exception Occurred\n")
+        except subprocess.CalledProcessError:
+            print(f"Error with DNS Resolver {dns_resolver}")
 
     # print(ipv4_addresses)
-    return ipv4_addresses
+    # TODO: Maybe return in specific order?
+    return list(ipv4_addresses)
 
 def get_ipv6_addresses(domain):
     """
     Returns a list of IPv6 addresses associated with a domain.
     """
-    # TODO: Do this for every domain name resolver
-    ipv6_addresses = []
+    ipv6_addresses = set()
 
     for dns_resolver in public_dns_resolvers:
         try:
             nslookup_result = subprocess.check_output(["nslookup", domain, dns_resolver], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
-
             # print(f"Current dns_resolver: {dns_resolver}")
             # print(f"nslookup_result: {nslookup_result}")
 
@@ -123,20 +129,16 @@ def get_ipv6_addresses(domain):
                 if 'Address: ' in s:
                     ip = s.split('Address: ')[1].strip('\n\t')
                     if ':' not in ip:
-                        ipv4_addresses.append(ip)
+                        ipv6_addresses.add(ip)
         except subprocess.TimeoutExpired:
             # TODO: Do we print here?
             print("TimeoutExpired Exception Occurred\n")
+        except subprocess.CalledProcessError:
+            print(f"Error with DNS Resolver {dns_resolver}")
 
-    # print(ipv4_addresses)
-    return ipv6_addresses
-
-    '''
-    try:
-        return [ip[4][0] for ip in socket.getaddrinfo(domain, None, socket.AF_INET6)]
-    except:
-        return []
-    '''
+    print(ipv6_addresses)
+    # TODO: Maybe return in specific order?
+    return list(ipv6_addresses)
 
 '''
 def get_http_server(domain):
