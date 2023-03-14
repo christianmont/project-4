@@ -1,10 +1,6 @@
 {
-    "en.wikipedia.com": {
-        "ipv4_addresses": [
-            "91.198.174.194",
-            "208.80.154.232",
-            "208.80.153.232"
-        ],
-        "scan_time": 1678670171.9016097
+    "google.com": {
+        "insecure_http": true,
+        "redirect_to_http": true
     }
 }

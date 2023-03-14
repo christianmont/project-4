@@ -1,217 +1,86 @@
 {
     "amazon.com": {
-        "ipv4_addresses": [
-            "54.239.28.85",
-            "205.251.242.103",
-            "52.94.236.248"
-        ],
-        "scan_time": 1678670318.0206006
+        "insecure_http": true
     },
     "asee.org": {
-        "ipv4_addresses": [
-            "20.49.104.48"
-        ],
-        "scan_time": 1678670417.2884104
+        "insecure_http": true
     },
     "auditoryneuroscience.com": {
-        "ipv4_addresses": [
-            "144.214.26.111"
-        ],
-        "scan_time": 1678670410.8886569
+        "insecure_http": true
     },
     "clocktab.com": {
-        "ipv4_addresses": [
-            "172.64.80.1",
-            "104.21.54.147",
-            "172.67.139.104"
-        ],
-        "scan_time": 1678670405.8113263
+        "insecure_http": true
     },
     "en.wikipedia.org": {
-        "ipv4_addresses": [
-            "208.80.154.224",
-            "208.80.153.224",
-            "91.198.174.192"
-        ],
-        "scan_time": 1678670301.8855622
+        "insecure_http": true
     },
     "facebook.com": {
-        "ipv4_addresses": [
-            "157.240.249.35",
-            "157.240.205.35",
-            "157.240.254.35",
-            "157.240.19.35",
-            "157.240.253.35"
-        ],
-        "scan_time": 1678670313.2294164
+        "insecure_http": true
     },
     "fandom.com": {
-        "ipv4_addresses": [
-            "199.232.212.194",
-            "199.232.208.194"
-        ],
-        "scan_time": 1678670336.7326689
+        "insecure_http": true
     },
     "gradeinflation.com": {
-        "ipv4_addresses": [
-            "51.79.45.180"
-        ],
-        "scan_time": 1678670423.1781976
+        "insecure_http": true
     },
     "illinois.edu": {
-        "ipv4_addresses": [
-            "192.17.172.3"
-        ],
-        "scan_time": 1678670395.4984362
+        "insecure_http": true
     },
     "imdb.com": {
-        "ipv4_addresses": [
-            "52.94.225.248",
-            "52.94.237.74",
-            "52.94.228.167"
-        ],
-        "scan_time": 1678670332.054733
+        "insecure_http": true
     },
     "instagram.com": {
-        "ipv4_addresses": [
-            "157.240.254.174",
-            "157.240.205.174",
-            "157.240.253.174",
-            "157.240.19.174",
-            "157.240.249.174"
-        ],
-        "scan_time": 1678670353.2933342
+        "insecure_http": true
     },
     "it.eecs.northwestern.edu": {
-        "ipv4_addresses": [
-            "129.105.5.142"
-        ],
-        "scan_time": 1678670384.2457185
+        "insecure_http": true
     },
     "kellogg.northwestern.edu": {
-        "ipv4_addresses": [
-            "165.124.147.150",
-            "165.124.129.72"
-        ],
-        "scan_time": 1678670373.456126
+        "insecure_http": true
     },
     "kli.org": {
-        "ipv4_addresses": [
-            "20.127.141.51"
-        ],
-        "scan_time": 1678670438.8138359
+        "insecure_http": true
     },
     "mccormick.northwestern.edu": {
-        "ipv4_addresses": [
-            "165.124.149.20"
-        ],
-        "scan_time": 1678670368.0155902
+        "insecure_http": true
     },
     "northwestern.edu": {
-        "ipv4_addresses": [
-            "129.105.136.48"
-        ],
-        "scan_time": 1678670362.7761056
+        "insecure_http": true
     },
     "pinterest.com": {
-        "ipv4_addresses": [
-            "151.101.128.84",
-            "151.101.0.84",
-            "151.101.64.84",
-            "151.101.192.84"
-        ],
-        "scan_time": 1678670343.9500551
+        "insecure_http": true
     },
     "pmichaud.com": {
-        "ipv4_addresses": [
-            "23.254.203.248"
-        ],
-        "scan_time": 1678670433.7803717
+        "insecure_http": true
     },
     "reddit.com": {
-        "ipv4_addresses": [
-            "151.101.193.140",
-            "151.101.129.140",
-            "151.101.1.140",
-            "151.101.65.140"
-        ],
-        "scan_time": 1678670327.3923347
+        "insecure_http": true
     },
     "spacejam.com": {
-        "ipv4_addresses": [
-            "75.2.104.223",
-            "99.83.180.228"
-        ],
-        "scan_time": 1678670428.6088314
+        "insecure_http": true
     },
     "stevetarzia.com": {
-        "ipv4_addresses": [
-            "3.143.61.245"
-        ],
-        "scan_time": 1678670400.645619
+        "insecure_http": true
     },
     "tripadvisor.com": {
-        "ipv4_addresses": [
-            "151.101.194.28",
-            "151.101.130.28",
-            "151.101.66.28",
-            "151.101.2.28"
-        ],
-        "scan_time": 1678670348.5299923
+        "insecure_http": true
     },
     "twitter.com": {
-        "ipv4_addresses": [
-            "104.244.42.193",
-            "104.244.42.129",
-            "104.244.42.65",
-            "104.244.42.1"
-        ],
-        "scan_time": 1678670306.6162422
+        "insecure_http": true
     },
     "uchicago.edu": {
-        "ipv4_addresses": [
-            "34.200.129.209"
-        ],
-        "scan_time": 1678670389.9668605
+        "insecure_http": true
     },
     "users.cs.northwestern.edu": {
-        "ipv4_addresses": [
-            "165.124.180.20"
-        ],
-        "scan_time": 1678670378.7923229
+        "insecure_http": true
     },
     "walmart.com": {
-        "ipv4_addresses": [
-            "161.170.232.170",
-            "161.165.150.170"
-        ],
-        "scan_time": 1678670357.9341607
+        "insecure_http": true
     },
     "yelp.com": {
-        "ipv4_addresses": [
-            "146.75.76.116",
-            "151.101.68.116",
-            "151.101.124.116",
-            "151.101.36.116"
-        ],
-        "scan_time": 1678670322.6085396
+        "insecure_http": true
     },
     "youtube.com": {
-        "ipv4_addresses": [
-            "172.217.1.142",
-            "108.177.14.190",
-            "108.177.14.91",
-            "142.250.31.190",
-            "142.251.32.14",
-            "142.250.31.91",
-            "172.217.4.46",
-            "216.58.210.174",
-            "142.250.31.136",
-            "142.250.31.93",
-            "108.177.14.93",
-            "108.177.14.136",
-            "142.250.190.110"
-        ],
-        "scan_time": 1678670296.7761414
+        "insecure_http": true
     }
 }
