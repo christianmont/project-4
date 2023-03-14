@@ -1,7 +1,7 @@
 import argparse
 import json
 import socket
-import ssl
+# import ssl
 import subprocess
 import time
 import requests
@@ -52,35 +52,17 @@ def scan_domain(domain):
     # Scan for TLS versions
     tls_versions = get_tls_versions(domain)
     results["tls_versions"] = tls_versions
+    """
 
-    # Scan for TLS ciphers
-    tls_ciphers = get_tls_ciphers(domain)
-    results["tls_ciphers"] = tls_ciphers
-
-    # Scan for WHOIS information
-    whois_info = get_whois_info(domain)
-    results["whois"] = whois_info
-
-    # Scan for MX records
-    mx_records = get_mx_records(domain)
-    results["mx_records"] = mx_records
-
-    # Scan for SPF records
-    spf_records = get_spf_records(domain)
-    results["spf_records"] = spf_records
-
-    # Scan for TXT records
-    txt_records = get_txt_records(domain)
-    results["txt_records"] = txt_records
-
-    # Print the results"""
-    print(f"Scanned {domain} in {time.time() - start_time:.2f} seconds")
+    # Print the results
+    print(f"Scanned {domain} in {time.time() - start_time} seconds")
     return results
 
 
 def get_ipv4_addresses(domain):
     """
-    Returns a list of IPv4 addresses associated with a domain.
+    Returns a list of all the IPv4 addresses associated with a domain,
+    using a predefined list of hardcoded IP addresses.
     """
     # TODO: Edge cases for when dealing with canonical name, and when
     # non-authoritative answer is not part of the string
@@ -115,7 +97,8 @@ def get_ipv4_addresses(domain):
 
 def get_ipv6_addresses(domain):
     """
-    Returns a list of IPv6 addresses associated with a domain.
+    Returns a list of all the IPv6 addresses associated with a domain,
+    using a predefined list of hardcoded IP addresses.
     """
     ipv6_addresses = set()
 
@@ -150,18 +133,17 @@ def get_http_server(domain):
     """
     # TODO: subprocess.DEVNULL?
     try:
-        output = subprocess.check_output(["curl", "-I", "-s", domain], timeout=2, stderr=subprocess.STDOUT)
-        output = output.decode().lower()
-        if "server:" in output:
-            server_index = output.index("server:")
-            server = output[server_index + 8:]
+        curl_result = subprocess.check_output(["curl", "-I", "-s", domain], timeout=2, stderr=subprocess.STDOUT)
+        curl_result = curl_result.decode().lower()
+        if "server:" in curl_result:
+            server_index = curl_result.index("server:")
+            server = curl_result[server_index + len("server:"):]
             server = server.split("\n")[0].strip()
             return server
         else:
             return None
     except subprocess.TimeoutExpired:
         print("TimeoutExpired Exception Occurred\n")
-    return ""
 
 def listens_unencrypted_http(domain):
     """
@@ -191,7 +173,8 @@ def redirects_to_https(domain):
     request = requests.get(f"http://{domain}")
 
     # return 
-    print(type(request.history[0]))
+    for response in request.history:
+        if response.
     return True
 
 '''
@@ -206,131 +189,17 @@ def get_tls_versions(domain):
                 return ssock.version()
     except:
         return []
-
-
-def get_tls_ciphers(domain):
-    """
-    Returns a list of TLS ciphers supported by the domain.
-    """
-    try:
-        context = ssl.create_default_context()
-        with socket.create_connection((domain, 443)) as sock:
-            with context.wrap_socket(sock, server_hostname=domain) as ssock:
-                return [cipher[0] for cipher in ssock.shared_ciphers()]
-    except:
-        return []
-
-
-def get_whois_info(domain):
-    """
-    Retrieves WHOIS information for the specified domain.
-
-    Args:
-        domain (str): The domain to retrieve WHOIS information for.
-
-    Returns:
-        dict: A dictionary containing WHOIS information for the specified domain.
-    """
-    try:
-        whois_info = whois.whois(domain)
-
-        if whois_info.status:
-            status = whois_info.status[0].lower()
-        else:
-            status = ""
-
-        if whois_info.creation_date:
-            creation_date = whois_info.creation_date.strftime("%Y-%m-%d")
-        else:
-            creation_date = ""
-
-        if whois_info.expiration_date:
-            expiration_date = whois_info.expiration_date.strftime("%Y-%m-%d")
-        else:
-            expiration_date = ""
-
-        return {
-            "status": status,
-            "creation_date": creation_date,
-            "expiration_date": expiration_date,
-            "name_servers": whois_info.name_servers,
-            "registrar": whois_info.registrar,
-            "whois_server": whois_info.whois_server
-        }
-    except Exception as e:
-        print(f"Error getting WHOIS information for {domain}: {e}")
-        return {}
-
-def get_mx_records(domain):
-    """
-    This function returns a list of MX records for the domain.
-
-    Args:
-    - domain (str): the domain to retrieve MX records for.
-
-    Returns:
-    - mx_records (list): a list of MX records.
-    """
-    mx_records = []
-    try:
-        answers = dns.resolver.query(domain, 'MX')
-        for rdata in answers:
-            mx_records.append(str(rdata.exchange))
-    except Exception as e:
-        print(e)
-    return mx_records
-
-
-def get_spf_records(domain):
-    """
-    This function returns a list of SPF records for the domain.
-
-    Args:
-    - domain (str): the domain to retrieve SPF records for.
-
-    Returns:
-    - spf_records (list): a list of SPF records.
-    """
-    spf_records = []
-    try:
-        answers = dns.resolver.query(domain, 'TXT')
-        for rdata in answers:
-            if rdata.to_text().startswith("v=spf"):
-                spf_records.append(rdata.to_text().replace('"', ''))
-    except Exception as e:
-        print(e)
-    return spf_records
-
-
-def get_txt_records(domain):
-    """
-    This function returns a list of TXT records for the domain.
-
-    Args:
-    - domain (str): the domain to retrieve TXT records for.
-
-    Returns:
-    - txt_records (list): a list of TXT records.
-    """
-    txt_records = []
-    try:
-        answers = dns.resolver.query(domain, 'TXT')
-        for rdata in answers:
-            txt_records.append(rdata.to_text().replace('"', ''))
-    except Exception as e:
-        print(e)
-    return txt_records
 '''
 
 def scan_domains(domains):
     """
     Scans the specified domains and generates a report with the results.
 
-    Args:
-        domains (list): A list of domains to scan.
+    Arguments:
+        domains: A list of domains to scan.
 
     Returns:
-        dict: A dictionary containing the scan results for the specified domains.
+        A dictionary containing the scan results for the specified domains.
     """
     results = {}
 
@@ -346,12 +215,6 @@ def scan_domains(domains):
         '''
         insecure_http = listens_unencrypted_http(domain)
         redirect_to_http = redirects_to_https(domain)
-        '''
-        https_cert_info = get_https_cert_info(domain)
-        whois_info = get_whois_info(domain)
-
-        end_time = datetime.now().timestamp()
-        '''
 
         results[domain] = {
             "insecure_http": insecure_http,
@@ -364,15 +227,10 @@ def scan_domains(domains):
         "ipv6_addresses": ipv6_addresses,
         "http_server": http_server,
         "insecure_http": insecure_http,
-        "https_cert_info": https_cert_info,
-        "whois_info": whois_info,
-        "total_scan_time": end_time - start_time
         '''
 
     return results
 
-
-# TODO: Look into main.py being produced
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Scan a list of web domains and output a JSON report.")
     parser.add_argument("input_file", help="Path to a file containing a list of domains to scan.")
