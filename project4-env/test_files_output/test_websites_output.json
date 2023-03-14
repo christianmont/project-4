@@ -1,89 +1,218 @@
 {
     "amazon.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "asee.org": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2"
+        ]
     },
     "auditoryneuroscience.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "clocktab.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "en.wikipedia.org": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "facebook.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "fandom.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "gradeinflation.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "https-only.senlin.dev": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "illinois.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "imdb.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "instagram.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "it.eecs.northwestern.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "kellogg.northwestern.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2"
+        ]
     },
     "kli.org": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "mccormick.northwestern.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2"
+        ]
     },
     "northwestern.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "pinterest.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "pmichaud.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "reddit.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "spacejam.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "stevetarzia.com": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     },
     "tripadvisor.com": {
-        "hsts": null
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "twitter.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "uchicago.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "users.cs.northwestern.edu": {
-        "hsts": false
+        "hsts": false,
+        "tls_versions": [
+            "tls1_2"
+        ]
     },
     "walmart.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1_2"
+        ]
     },
     "yelp.com": {
-        "hsts": true
+        "hsts": false,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     },
     "youtube.com": {
-        "hsts": true
+        "hsts": true,
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2",
+            "tls1_3"
+        ]
     }
 }

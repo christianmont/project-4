@@ -1,5 +1,6 @@
 {
     "google.com": {
-        "hsts": true
+        "hsts": false,
+        "tls_versions": null
     }
 }

@@ -1,7 +1,7 @@
 import argparse
 import json
 import socket
-# import ssl
+import ssl
 import subprocess
 import time
 import requests
@@ -135,7 +135,7 @@ def get_http_server(domain):
     """
     Returns the name of the HTTP server software running on the domain.
     """
-    # TODO: subprocess.DEVNULL?
+    # TODO: subprocess.DEVNULL? Maybe consider moving decode?
     try:
         curl_result = subprocess.check_output(["curl", "-I", "-s", domain], timeout=2, stderr=subprocess.STDOUT)
         curl_result = curl_result.decode().lower()
@@ -201,19 +201,23 @@ def is_hsts_enabled(domain):
     except requests.exceptions.Timeout:
         print("Timeout Exception Occurred\n")
 
-'''
 def get_tls_versions(domain):
     """
     Returns a list of TLS versions supported by the domain.
     """
-    try:
-        context = ssl.create_default_context()
-        with socket.create_connection((domain, 443)) as sock:
-            with context.wrap_socket(sock, server_hostname=domain) as ssock:
-                return ssock.version()
-    except:
-        return []
-'''
+    # We can ignore SSLv2 and SSLv3
+    possible_tls_versions = ['tls1', 'tls1_1', 'tls1_2', 'tls1_3']
+    supported_tls_versions = []
+    for tls_version in possible_tls_versions:
+        try:
+            openssl_output = subprocess.check_output(["openssl", "s_client", f"-{tls_version}", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+            supported_tls_versions.append(tls_version)
+        except subprocess.CalledProcessError:
+            # TODO: Different error?
+            print(f"{tls_version} not supported")
+        except subprocess.TimeoutExpired:
+            print("TimeoutExpired Exception Occurred\n")
+    return supported_tls_versions
 
 def scan_domains(domains):
     """
@@ -240,9 +244,11 @@ def scan_domains(domains):
         insecure_http = listens_unencrypted_http(domain)
         redirect_to_http = redirects_to_https(domain)
         hsts = is_hsts_enabled(domain)
+        tls_versions = get_tls_versions(domain)
 
         results[domain] = {
-            "hsts": hsts
+            "hsts": hsts,
+            "tls_versions": tls_versions
         }
 
         '''
