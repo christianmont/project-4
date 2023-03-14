@@ -1,118 +1,89 @@
 {
     "amazon.com": {
-        "insecure_http": false,
-        "redirect_to_http": true
+        "hsts": true
     },
     "asee.org": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "auditoryneuroscience.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "clocktab.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "en.wikipedia.org": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "facebook.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "fandom.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "gradeinflation.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "https-only.senlin.dev": {
-        "insecure_http": false,
-        "redirect_to_http": false
+        "hsts": false
     },
     "illinois.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "imdb.com": {
-        "insecure_http": false,
-        "redirect_to_http": true
+        "hsts": true
     },
     "instagram.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "it.eecs.northwestern.edu": {
-        "insecure_http": true,
-        "redirect_to_http": false
+        "hsts": false
     },
     "kellogg.northwestern.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "kli.org": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "mccormick.northwestern.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "northwestern.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "pinterest.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "pmichaud.com": {
-        "insecure_http": true,
-        "redirect_to_http": false
+        "hsts": false
     },
     "reddit.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "spacejam.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "stevetarzia.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "tripadvisor.com": {
-        "insecure_http": null,
-        "redirect_to_http": null
+        "hsts": null
     },
     "twitter.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "uchicago.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "users.cs.northwestern.edu": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": false
     },
     "walmart.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "yelp.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     },
     "youtube.com": {
-        "insecure_http": true,
-        "redirect_to_http": true
+        "hsts": true
     }
 }

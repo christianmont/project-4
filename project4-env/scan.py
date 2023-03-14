@@ -42,11 +42,15 @@ def scan_domain(domain):
     # Scan for HTTP server
     http_server = get_http_server(domain)
     results["http_server"] = http_server
-    '''
+    
 
     # Scan for Insecure HTTP
     insecure_http = listens_unencrypted_http(domain)
-    results["insecure_http"] = insecure_http
+    results["insecure_http"] = insecure_http'''
+
+    # Scan for whether HTTP Strict Transport Security is enabled
+    hsts = is_hsts_enabled(domain)
+    results["hsts"] = hsts
 
     """
     # Scan for TLS versions
@@ -181,6 +185,22 @@ def redirects_to_https(domain):
     except requests.exceptions.Timeout:
         print("Timeout Exception Occurred\n")
 
+def is_hsts_enabled(domain):
+    """
+    Checks if the given website has enabled HTTP Strict Transport
+    Security.
+    """
+    try:
+        # Making an insecure HTTP request
+        response = requests.get(f"http://{domain}", timeout=2)
+
+        header_fields = list(map(lambda s: s.lower(), response.headers.keys()))
+        return "strict-transport-security" in header_fields
+    except requests.exceptions.ConnectionError:
+        return False
+    except requests.exceptions.Timeout:
+        print("Timeout Exception Occurred\n")
+
 '''
 def get_tls_versions(domain):
     """
@@ -219,10 +239,10 @@ def scan_domains(domains):
         '''
         insecure_http = listens_unencrypted_http(domain)
         redirect_to_http = redirects_to_https(domain)
+        hsts = is_hsts_enabled(domain)
 
         results[domain] = {
-            "insecure_http": insecure_http,
-            "redirect_to_http": redirect_to_http
+            "hsts": hsts
         }
 
         '''
@@ -231,6 +251,7 @@ def scan_domains(domains):
         "ipv6_addresses": ipv6_addresses,
         "http_server": http_server,
         "insecure_http": insecure_http,
+        "redirect_to_http": redirect_to_http
         '''
 
     return results
