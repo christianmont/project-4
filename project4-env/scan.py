@@ -1,7 +1,7 @@
 import argparse
 import json
 import socket
-import ssl
+# import ssl
 import subprocess
 import time
 import requests
@@ -52,11 +52,13 @@ def scan_domain(domain):
     hsts = is_hsts_enabled(domain)
     results["hsts"] = hsts
 
-    """
     # Scan for TLS versions
     tls_versions = get_tls_versions(domain)
     results["tls_versions"] = tls_versions
-    """
+
+    # Scan for root certificate authority (CA)
+    root_ca = get_root_ca(domain)
+    results["root_ca"] = root_ca
 
     # Print the results
     print(f"Scanned {domain} in {time.time() - start_time} seconds")
@@ -219,6 +221,36 @@ def get_tls_versions(domain):
             print("TimeoutExpired Exception Occurred\n")
     return supported_tls_versions
 
+def get_root_ca(domain):
+    """
+    Gets the root certificate authority (CA) at the bottom of the chain
+    of trust needed for validating the public key of the domain
+    """
+    try:
+        openssl_output = subprocess.check_output(["openssl", "s_client", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+        if "Certificate chain" in openssl_output:
+            certificate_index = openssl_output.index("Certificate chain")
+            root_ca_data = openssl_output[certificate_index + len("Certificate chain"):]
+
+            separator_index = root_ca_data.index("---")
+            root_ca_data = root_ca_data[:separator_index]
+            root_ca_data = root_ca_data.strip('\n').split('\n')[-1].strip()
+            
+            root_ca_start_index = root_ca_data.index("O = ") + len("O = ")
+            root_ca_data = root_ca_data[root_ca_start_index:]
+
+            cn_index = ou_index = float('inf')
+            if ", CN = " in root_ca_data:
+                cn_index = root_ca_data.index(", CN = ")
+            if ", OU = " in root_ca_data:
+                ou_index = root_ca_data.index(", OU = ")
+            root_ca_end_index = min(cn_index, ou_index)
+            return root_ca_data[:root_ca_end_index].strip('\"\'')
+    except subprocess.CalledProcessError:
+        print("CalledProcessError Occurred\n")
+    except subprocess.TimeoutExpired:
+        print("TimeoutExpired Exception Occurred\n")
+
 def scan_domains(domains):
     """
     Scans the specified domains and generates a report with the results.
@@ -245,10 +277,12 @@ def scan_domains(domains):
         redirect_to_http = redirects_to_https(domain)
         hsts = is_hsts_enabled(domain)
         tls_versions = get_tls_versions(domain)
+        root_ca = get_root_ca(domain)
 
         results[domain] = {
             "hsts": hsts,
-            "tls_versions": tls_versions
+            "tls_versions": tls_versions,
+            "root_ca": root_ca
         }
 
         '''

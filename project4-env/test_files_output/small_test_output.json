@@ -1,6 +1,11 @@
 {
-    "google.com": {
-        "hsts": false,
-        "tls_versions": null
+    "amazon.com": {
+        "hsts": true,
+        "root_ca": "\"VeriSign, Inc.\"",
+        "tls_versions": [
+            "tls1",
+            "tls1_1",
+            "tls1_2"
+        ]
     }
 }
