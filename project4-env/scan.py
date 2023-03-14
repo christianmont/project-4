@@ -150,32 +150,36 @@ def listens_unencrypted_http(domain):
     Returns a boolean indicating if the website listens for unencrytped
     HTTP requests on port 80
     """
-    # TODO: Check if this works 100%
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # Connect to domain on port 80
     try:
-        s.connect((domain, 80))
-        return True
-    except:
+        # Making an insecure HTTP request
+        response = requests.get(f"http://{domain}", timeout=2)
+
+        return response.status_code < 400
+    except requests.exceptions.ConnectionError:
         return False
+    except requests.exceptions.Timeout:
+        print("Timeout Exception Occurred\n")
 
 def redirects_to_https(domain):
     """
     Checks if unecrypted HTTP requests on port 80 are redirected to
     HTTPS requests on port 443.
     """
-    # TODO: Maybe call listens_unecrypted_http
-    # TODO: Ensure that websites that are given to us do not indicate
-    # HTTP or HTTPS
+    try:
+        # Making an insecure HTTP request
+        response = requests.get(f"http://{domain}", timeout=2)
 
-    # Making an insecure HTTP request
-    request = requests.get(f"http://{domain}")
+        for old_response in response.history:
+            if str(old_response.status_code)[:2] == "30":
+                redirect_location = old_response.headers['Location']
+                if redirect_location[:len("https")] == "https":
+                    return True
 
-    # return 
-    for response in request.history:
-        if response.
-    return True
+        return False
+    except requests.exceptions.ConnectionError:
+        return False
+    except requests.exceptions.Timeout:
+        print("Timeout Exception Occurred\n")
 
 '''
 def get_tls_versions(domain):

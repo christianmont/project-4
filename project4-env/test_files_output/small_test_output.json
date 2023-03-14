@@ -1,5 +1,5 @@
 {
-    "google.com": {
+    "facebook.com": {
         "insecure_http": true,
         "redirect_to_http": true
     }
