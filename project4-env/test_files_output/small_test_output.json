@@ -1,5 +1,7 @@
 {
-    "https-only.senlin.dev": {
-        "rtt_range": null
+    "amazon.com": {
+        "geo_locations": [
+            "Ashburn, Virginia, United States"
+        ]
     }
 }

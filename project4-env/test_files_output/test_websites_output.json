@@ -1,173 +1,109 @@
 {
     "amazon.com": {
-        "rtt_range": [
-            21,
-            26
+        "geo_locations": [
+            "Ashburn, Virginia, United States"
         ]
     },
     "asee.org": {
-        "rtt_range": [
-            21,
-            21
+        "geo_locations": [
+            "Washington, Virginia, United States"
         ]
     },
     "auditoryneuroscience.com": {
-        "rtt_range": [
-            271,
-            271
+        "geo_locations": [
+            "Central, Central and Western District, Hong Kong"
         ]
     },
     "clocktab.com": {
-        "rtt_range": [
-            3,
-            3
-        ]
+        "geo_locations": null
     },
     "en.wikipedia.org": {
-        "rtt_range": [
-            23,
-            95
-        ]
+        "geo_locations": null
     },
     "facebook.com": {
-        "rtt_range": [
-            3,
-            105
-        ]
+        "geo_locations": null
     },
     "fandom.com": {
-        "rtt_range": [
-            3,
-            3
-        ]
+        "geo_locations": null
     },
     "gradeinflation.com": {
-        "rtt_range": [
-            20,
-            20
+        "geo_locations": [
+            "Victoria, British Columbia, Canada"
         ]
     },
     "https-only.senlin.dev": {
-        "rtt_range": null
+        "geo_locations": null
     },
     "illinois.edu": {
-        "rtt_range": [
-            6,
-            6
+        "geo_locations": [
+            "Urbana, Illinois, United States"
         ]
     },
     "imdb.com": {
-        "rtt_range": [
-            24,
-            25
+        "geo_locations": [
+            "Ashburn, Virginia, United States"
         ]
     },
     "instagram.com": {
-        "rtt_range": [
-            3,
-            105
-        ]
+        "geo_locations": null
     },
     "it.eecs.northwestern.edu": {
-        "rtt_range": [
-            2,
-            2
+        "geo_locations": [
+            "Chicago, Illinois, United States"
         ]
     },
     "kellogg.northwestern.edu": {
-        "rtt_range": [
-            2,
-            2
-        ]
+        "geo_locations": null
     },
     "kli.org": {
-        "rtt_range": [
-            22,
-            22
-        ]
+        "geo_locations": null
     },
     "mccormick.northwestern.edu": {
-        "rtt_range": [
-            2,
-            2
-        ]
+        "geo_locations": null
     },
     "northwestern.edu": {
-        "rtt_range": [
-            3,
-            3
-        ]
+        "geo_locations": null
     },
     "pinterest.com": {
-        "rtt_range": [
-            3,
-            4
-        ]
+        "geo_locations": null
     },
     "pmichaud.com": {
-        "rtt_range": [
-            24,
-            24
-        ]
+        "geo_locations": null
     },
     "reddit.com": {
-        "rtt_range": [
-            3,
-            4
-        ]
+        "geo_locations": null
     },
     "spacejam.com": {
-        "rtt_range": [
-            3,
-            26
-        ]
+        "geo_locations": null
     },
     "stevetarzia.com": {
-        "rtt_range": [
-            11,
-            11
+        "geo_locations": [
+            "Columbus, Ohio, United States"
         ]
     },
     "tripadvisor.com": {
-        "rtt_range": [
-            3,
-            4
-        ]
+        "geo_locations": null
     },
     "twitter.com": {
-        "rtt_range": [
-            18,
-            23
-        ]
+        "geo_locations": null
     },
     "uchicago.edu": {
-        "rtt_range": [
-            24,
-            24
-        ]
+        "geo_locations": null
     },
     "users.cs.northwestern.edu": {
-        "rtt_range": [
-            2,
-            2
-        ]
+        "geo_locations": null
     },
     "walmart.com": {
-        "rtt_range": [
-            30,
-            42
-        ]
+        "geo_locations": null
     },
     "yelp.com": {
-        "rtt_range": [
-            3,
-            92
+        "geo_locations": [
+            "Toronto, Ontario, Canada",
+            "Denver, Colorado, United States",
+            "Amsterdam, North Holland, Netherlands"
         ]
     },
     "youtube.com": {
-        "rtt_range": [
-            2,
-            119
-        ]
+        "geo_locations": null
     }
 }

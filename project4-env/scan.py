@@ -1,10 +1,9 @@
 import argparse
 import json
-import socket
-# import ssl
 import subprocess
 import time
 import requests
+import maxminddb
 
 # Public DNS Resolvers (Hardcoded)
 public_dns_resolvers = [
@@ -62,20 +61,18 @@ def scan_domain(domain):
     # Scan for reversed DNS names
     rdns_names = get_rdns_names(domain)
     results["rdns_names"] = rdns_names
-    '''
 
     # Scan for the shortest and longest round trip time (RTT) observed
     # when contacting all the IPv4 addresses that were obtained for
     # a domain
     rtt_range = get_rtt_range(domain)
     results["rtt_range"] = rtt_range
-
     '''
+
     # Scan for all the real-world locations (city, province, country)
     # for all the IPv4 addresses that were obtained for a domain
     geo_locations = get_geo_locations(domain)
     results["geo_locations"] = geo_locations
-    '''
 
     # Print the results
     print(f"Scanned {domain} in {time.time() - start_time} seconds")
@@ -326,7 +323,7 @@ def get_rtt_range(domain):
         # RTT should be about the same on all ports
         if len(ipv4_addresses) > 0:
             break
-            
+
     if len(rtt_list) == 0:
         return None
     return [int(min(rtt_list) * 1000), int(max(rtt_list) * 1000)]
@@ -336,14 +333,24 @@ def get_geo_locations(domain):
     Gets all the real-world locations (city, province, country) for the
     IPv4 addresses that were collected for the specified domain
     """
-    '''
-    try:
-    except:
-    except:
-                except subprocess.CalledProcessError:
-            print("CalledProcessError Occurred\n")
-    return
-    '''
+    ipv4_addresses = get_ipv4_addresses(domain)
+    geo_locations = set()
+    with maxminddb.open_database("GeoLite2-City.mmdb") as reader:
+        for ipv4_address in ipv4_addresses:
+            try:
+                ip_geo_data = reader.get(ipv4_address)
+                print(f"Data for {domain}: {ip_geo_data}")
+                if 'city' in ip_geo_data and 'subdivisions' in ip_geo_data and 'country' in ip_geo_data:
+                    city = ip_geo_data['city']['names']['en']
+                    subdivision = ip_geo_data['subdivisions'][0]['names']['en']
+                    country = ip_geo_data['country']['names']['en']
+                    geo_locations.add(f"{city}, {subdivision}, {country}")
+            except:
+                # Don't add location data for IPv4 address if there is an error
+                pass
+    if len(geo_locations) == 0:
+        return None
+    return list(geo_locations)
 
 def scan_domains(domains):
     """
@@ -372,12 +379,12 @@ def scan_domains(domains):
         tls_versions = get_tls_versions(domain)
         root_ca = get_root_ca(domain)
         rdns_names = get_rdns_names(domain)
-        geo_locations = get_geo_locations(domain)
-        '''
         rtt_range = get_rtt_range(domain)
+        '''
+        geo_locations = get_geo_locations(domain)
 
         results[domain] = {
-            "rtt_range": rtt_range
+            "geo_locations": geo_locations
         }
 
         '''
@@ -391,7 +398,7 @@ def scan_domains(domains):
         "tls_versions": tls_versions,
         "root_ca": root_ca,
         "rdns_names": rdns_names,
-        "geo_locations": geo_locations
+        "rtt_range": rtt_range,
         '''
 
     return results
