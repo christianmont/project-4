@@ -42,11 +42,10 @@ def scan_domain(domain):
     # Scan for HTTP server
     http_server = get_http_server(domain)
     results["http_server"] = http_server
-    
 
     # Scan for Insecure HTTP
     insecure_http = listens_unencrypted_http(domain)
-    results["insecure_http"] = insecure_http'''
+    results["insecure_http"] = insecure_http
 
     # Scan for whether HTTP Strict Transport Security is enabled
     hsts = is_hsts_enabled(domain)
@@ -59,6 +58,24 @@ def scan_domain(domain):
     # Scan for root certificate authority (CA)
     root_ca = get_root_ca(domain)
     results["root_ca"] = root_ca
+
+    # Scan for reversed DNS names
+    rdns_names = get_rdns_names(domain)
+    results["rdns_names"] = rdns_names
+    '''
+
+    # Scan for the shortest and longest round trip time (RTT) observed
+    # when contacting all the IPv4 addresses that were obtained for
+    # a domain
+    rtt_range = get_rtt_range(domain)
+    results["rtt_range"] = rtt_range
+
+    '''
+    # Scan for all the real-world locations (city, province, country)
+    # for all the IPv4 addresses that were obtained for a domain
+    geo_locations = get_geo_locations(domain)
+    results["geo_locations"] = geo_locations
+    '''
 
     # Print the results
     print(f"Scanned {domain} in {time.time() - start_time} seconds")
@@ -209,11 +226,13 @@ def get_tls_versions(domain):
     """
     # We can ignore SSLv2 and SSLv3
     possible_tls_versions = ['tls1', 'tls1_1', 'tls1_2', 'tls1_3']
+    tls_to_official_name = {'tls1': "TLSv1.0", 'tls1_1': "TLSv1.1", 'tls1_2': "TLSv1.2", 'tls1_3': "TLSv1.3"}
+
     supported_tls_versions = []
     for tls_version in possible_tls_versions:
         try:
-            openssl_output = subprocess.check_output(["openssl", "s_client", f"-{tls_version}", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
-            supported_tls_versions.append(tls_version)
+            subprocess.check_output(["openssl", "s_client", f"-{tls_version}", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+            supported_tls_versions.append(tls_to_official_name[tls_version])
         except subprocess.CalledProcessError:
             # TODO: Different error?
             print(f"{tls_version} not supported")
@@ -227,10 +246,10 @@ def get_root_ca(domain):
     of trust needed for validating the public key of the domain
     """
     try:
-        openssl_output = subprocess.check_output(["openssl", "s_client", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
-        if "Certificate chain" in openssl_output:
-            certificate_index = openssl_output.index("Certificate chain")
-            root_ca_data = openssl_output[certificate_index + len("Certificate chain"):]
+        openssl_result = subprocess.check_output(["openssl", "s_client", "-connect", f"{domain}:443"], input=b'', timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+        if "Certificate chain" in openssl_result:
+            certificate_index = openssl_result.index("Certificate chain")
+            root_ca_data = openssl_result[certificate_index + len("Certificate chain"):]
 
             separator_index = root_ca_data.index("---")
             root_ca_data = root_ca_data[:separator_index]
@@ -250,6 +269,37 @@ def get_root_ca(domain):
         print("CalledProcessError Occurred\n")
     except subprocess.TimeoutExpired:
         print("TimeoutExpired Exception Occurred\n")
+
+def get_rdns_names(domain):
+    """
+    Get the reverse DNS names for the IPv4 addresses.
+    """
+    rdns_names = set()
+    ipv4_addresses = get_ipv4_addresses(domain)
+    for ipv4_address in ipv4_addresses:
+        try:
+            nslookup_result = subprocess.check_output(["nslookup", "-type=PTR", ipv4_address], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+
+            if 'Non-authoritative answer:\n' in nslookup_result and 'Authoritative answers can be found from:\n' in nslookup_result:
+                nonauthoritative_index = nslookup_result.index('Non-authoritative answer:\n') + len('Non-authoritative answer:\n')
+                authoritative_index = nslookup_result.index('Authoritative answers can be found from:\n')
+
+                name_data = nslookup_result[nonauthoritative_index:authoritative_index].strip('\n').split('\n')
+            else:
+                name_data = []
+                for line in nslookup_result.split('\n'):
+                    if "\tname = " in line:
+                        name_data.append(line)
+
+            for name_data_line in name_data:
+                rdns_name_index = name_data_line.index("name = ") + len("name = ")
+                rdns_name = name_data_line[rdns_name_index:-1]
+                rdns_names.add(rdns_name)
+        except subprocess.TimeoutExpired:
+            pass
+        except subprocess.CalledProcessError:
+            pass
+    return list(rdns_names)
 
 def scan_domains(domains):
     """
@@ -278,11 +328,13 @@ def scan_domains(domains):
         hsts = is_hsts_enabled(domain)
         tls_versions = get_tls_versions(domain)
         root_ca = get_root_ca(domain)
+        rdns_names = get_rdns_names(domain)
 
         results[domain] = {
             "hsts": hsts,
             "tls_versions": tls_versions,
-            "root_ca": root_ca
+            "root_ca": root_ca,
+            "rdns_names": rdns_names
         }
 
         '''

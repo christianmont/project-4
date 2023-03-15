@@ -1,247 +1,337 @@
 {
     "amazon.com": {
         "hsts": true,
+        "rdns_names": [
+            "s3-console-us-standard.console.aws.amazon.com"
+        ],
         "root_ca": "VeriSign, Inc.",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "asee.org": {
         "hsts": false,
+        "rdns_names": [],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1_2"
+            "TLSv1.2"
         ]
     },
     "auditoryneuroscience.com": {
         "hsts": false,
+        "rdns_names": [
+            "twinkle.bms.cityu.edu.hk"
+        ],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "clocktab.com": {
         "hsts": false,
+        "rdns_names": [],
         "root_ca": "Baltimore",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "en.wikipedia.org": {
         "hsts": true,
+        "rdns_names": [
+            "text-lb.eqiad.wikimedia.org",
+            "text-lb.codfw.wikimedia.org",
+            "text-lb.esams.wikimedia.org"
+        ],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "facebook.com": {
         "hsts": true,
+        "rdns_names": [
+            "edge-star-mini-shv-02-ord5.facebook.com",
+            "edge-star-mini-shv-01-dfw5.facebook.com",
+            "edge-star-mini-shv-01-ord5.facebook.com",
+            "edge-star-mini-shv-02-frt3.facebook.com"
+        ],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "fandom.com": {
         "hsts": false,
+        "rdns_names": [],
         "root_ca": "GlobalSign",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "gradeinflation.com": {
         "hsts": false,
+        "rdns_names": [
+            "gw1.ahs5.r4l.com"
+        ],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "https-only.senlin.dev": {
         "hsts": false,
+        "rdns_names": [
+            "harcos.cs.northwestern.edu"
+        ],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "illinois.edu": {
         "hsts": false,
+        "rdns_names": [
+            "tardis.techservices.illinois.edu"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "imdb.com": {
         "hsts": true,
+        "rdns_names": [],
         "root_ca": "Starfield Technologies, Inc.",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "instagram.com": {
         "hsts": true,
+        "rdns_names": [
+            "instagram-p42-shv-02-ord5.fbcdn.net",
+            "instagram-p42-shv-01-ord5.fbcdn.net",
+            "instagram-p42-shv-02-frt3.fbcdn.net",
+            "instagram-p42-shv-01-dfw5.fbcdn.net"
+        ],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "it.eecs.northwestern.edu": {
         "hsts": false,
+        "rdns_names": [
+            "it.ece.northwestern.edu"
+        ],
         "root_ca": "Unspecified",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "kellogg.northwestern.edu": {
         "hsts": false,
+        "rdns_names": [
+            "kelloggalumni.kellogg.northwestern.edu"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1_2"
+            "TLSv1.2"
         ]
     },
     "kli.org": {
         "hsts": false,
+        "rdns_names": [],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "mccormick.northwestern.edu": {
         "hsts": false,
+        "rdns_names": [
+            "davinci20.tech.northwestern.edu"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1_2"
+            "TLSv1.2"
         ]
     },
     "northwestern.edu": {
         "hsts": false,
+        "rdns_names": [
+            "cnair.northwestern.edu",
+            "evcommon-caesar-vip.northwestern.edu"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "pinterest.com": {
         "hsts": true,
+        "rdns_names": [],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "pmichaud.com": {
         "hsts": false,
+        "rdns_names": [
+            "hwsrv-233708.hostwindsdns.com"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "reddit.com": {
         "hsts": true,
+        "rdns_names": [],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "spacejam.com": {
         "hsts": true,
+        "rdns_names": [
+            "a259cf76d74e1f65f.awsglobalaccelerator.com"
+        ],
         "root_ca": "GlobalSign",
         "tls_versions": [
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "stevetarzia.com": {
         "hsts": false,
+        "rdns_names": [
+            "waffles.stevetarzia.com"
+        ],
         "root_ca": "Digital Signature Trust Co.",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2"
         ]
     },
     "tripadvisor.com": {
         "hsts": null,
+        "rdns_names": [],
         "root_ca": "GlobalSign",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "twitter.com": {
         "hsts": true,
+        "rdns_names": [],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "uchicago.edu": {
         "hsts": false,
+        "rdns_names": [
+            "ec2-34-200-129-209.compute-1.amazonaws.com"
+        ],
         "root_ca": "The USERTRUST Network",
         "tls_versions": [
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "users.cs.northwestern.edu": {
         "hsts": false,
+        "rdns_names": [
+            "web1.cs.northwestern.edu"
+        ],
         "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1_2"
+            "TLSv1.2"
         ]
     },
     "walmart.com": {
         "hsts": true,
+        "rdns_names": [
+            "walmart.com"
+        ],
         "root_ca": "GlobalSign",
         "tls_versions": [
-            "tls1_2"
+            "TLSv1.2"
         ]
     },
     "yelp.com": {
         "hsts": false,
+        "rdns_names": [],
         "root_ca": "DigiCert Inc",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     },
     "youtube.com": {
         "hsts": true,
+        "rdns_names": [
+            "ord37s52-in-f14.1e100.net",
+            "wv-in-f91.1e100.net",
+            "ord37s35-in-f14.1e100.net",
+            "wv-in-f190.1e100.net",
+            "ord37s33-in-f14.1e100.net",
+            "rr-in-f91.1e100.net",
+            "atl14s78-in-f14.1e100.net",
+            "wv-in-f136.1e100.net",
+            "arn11s04-in-f14.1e100.net",
+            "wv-in-f93.1e100.net",
+            "rr-in-f136.1e100.net",
+            "rr-in-f93.1e100.net",
+            "rr-in-f190.1e100.net",
+            "ord38s30-in-f14.1e100.net",
+            "ord38s33-in-f14.1e100.net"
+        ],
         "root_ca": "GlobalSign nv-sa",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2",
-            "tls1_3"
+            "TLSv1.0",
+            "TLSv1.1",
+            "TLSv1.2",
+            "TLSv1.3"
         ]
     }
 }

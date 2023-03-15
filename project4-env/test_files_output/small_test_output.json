@@ -1,11 +1,12 @@
 {
-    "amazon.com": {
-        "hsts": true,
-        "root_ca": "\"VeriSign, Inc.\"",
+    "users.cs.northwestern.edu": {
+        "hsts": false,
+        "rdns_names": [
+            "web1.cs.northwestern.edu"
+        ],
+        "root_ca": "Comodo CA Limited",
         "tls_versions": [
-            "tls1",
-            "tls1_1",
-            "tls1_2"
+            "TLSv1.2"
         ]
     }
 }
