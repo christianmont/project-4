@@ -1,12 +1,5 @@
 {
-    "users.cs.northwestern.edu": {
-        "hsts": false,
-        "rdns_names": [
-            "web1.cs.northwestern.edu"
-        ],
-        "root_ca": "Comodo CA Limited",
-        "tls_versions": [
-            "TLSv1.2"
-        ]
+    "https-only.senlin.dev": {
+        "rtt_range": null
     }
 }

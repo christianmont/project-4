@@ -295,11 +295,55 @@ def get_rdns_names(domain):
                 rdns_name_index = name_data_line.index("name = ") + len("name = ")
                 rdns_name = name_data_line[rdns_name_index:-1]
                 rdns_names.add(rdns_name)
-        except subprocess.TimeoutExpired:
-            pass
         except subprocess.CalledProcessError:
-            pass
+            print("CalledProcessError Occurred\n")
+        except subprocess.TimeoutExpired:
+            print("CalledProcessError Occurred\n")
     return list(rdns_names)
+
+def get_rtt_range(domain):
+    """
+    Gets the shortest and longest round trip time (RTT) observed when
+    contacting all the IPv4 addresses that were collected for the
+    specified domain.
+    """
+    ipv4_addresses = get_ipv4_addresses(domain)
+    common_ports = ["80", "22", "443"]
+    rtt_list = []
+    for port in common_ports:
+        for ipv4_address in ipv4_addresses:
+            try:
+                telnet_output = subprocess.check_output(["sh",  "-c", f"time echo -e '\x1dclose\x0d' | telnet {ipv4_address} {port}"], timeout=2, stderr=subprocess.STDOUT).decode("utf-8")
+                real_time_start_index = telnet_output.index("real\t0m") + len("real\t0m")
+                time_data = telnet_output[real_time_start_index:]
+                real_time_end_index = time_data.index('s')
+                real_time = time_data[:real_time_end_index]
+                rtt_list.append(float(real_time))
+            except subprocess.TimeoutExpired:
+                pass
+            except subprocess.CalledProcessError:
+                print("CalledProcessError Occurred\n")
+        # RTT should be about the same on all ports
+        if len(ipv4_addresses) > 0:
+            break
+            
+    if len(rtt_list) == 0:
+        return None
+    return [int(min(rtt_list) * 1000), int(max(rtt_list) * 1000)]
+
+def get_geo_locations(domain):
+    """
+    Gets all the real-world locations (city, province, country) for the
+    IPv4 addresses that were collected for the specified domain
+    """
+    '''
+    try:
+    except:
+    except:
+                except subprocess.CalledProcessError:
+            print("CalledProcessError Occurred\n")
+    return
+    '''
 
 def scan_domains(domains):
     """
@@ -322,19 +366,18 @@ def scan_domains(domains):
         ipv4_addresses = get_ipv4_addresses(domain)
         ipv6_addresses = get_ipv6_addresses(domain)
         http_server = get_http_server(domain)
-        '''
         insecure_http = listens_unencrypted_http(domain)
         redirect_to_http = redirects_to_https(domain)
         hsts = is_hsts_enabled(domain)
         tls_versions = get_tls_versions(domain)
         root_ca = get_root_ca(domain)
         rdns_names = get_rdns_names(domain)
+        geo_locations = get_geo_locations(domain)
+        '''
+        rtt_range = get_rtt_range(domain)
 
         results[domain] = {
-            "hsts": hsts,
-            "tls_versions": tls_versions,
-            "root_ca": root_ca,
-            "rdns_names": rdns_names
+            "rtt_range": rtt_range
         }
 
         '''
@@ -344,6 +387,11 @@ def scan_domains(domains):
         "http_server": http_server,
         "insecure_http": insecure_http,
         "redirect_to_http": redirect_to_http
+        "hsts": hsts,
+        "tls_versions": tls_versions,
+        "root_ca": root_ca,
+        "rdns_names": rdns_names,
+        "geo_locations": geo_locations
         '''
 
     return results
